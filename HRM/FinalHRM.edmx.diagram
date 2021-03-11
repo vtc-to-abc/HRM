@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="35219d2f24754f38be5c1f9c093c0d16" Name="Diagram1">
+        <EntityTypeShape EntityType="FinalHRMModel.Account" Width="1.5" PointX="7.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="FinalHRMModel.Department" Width="1.5" PointX="5.25" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="FinalHRMModel.EmployeeNow" Width="1.5" PointX="3" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FinalHRMModel.EmployJobProfile" Width="1.5" PointX="9.75" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="FinalHRMModel.HistoryEmployee" Width="1.5" PointX="0.75" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="FinalHRMModel.HistoryTakePartIn" Width="1.5" PointX="3" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="FinalHRMModel.JobOfDep" Width="1.5" PointX="7.5" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="FinalHRMModel.Job" Width="1.5" PointX="5.25" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="FinalHRMModel.Project" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FinalHRMModel.TakePartInNow" Width="1.5" PointX="5.25" PointY="2" IsExpanded="true" />
+        <AssociationConnector Association="FinalHRMModel.FK__Departmen__Manag__1FCDBCEB" ManuallyRouted="false" />
+        <AssociationConnector Association="FinalHRMModel.FK__JobOfDep__Dep_ID__164452B1" ManuallyRouted="false" />
+        <AssociationConnector Association="FinalHRMModel.FK__EmployeeN__Caree__1ED998B2" ManuallyRouted="false" />
+        <AssociationConnector Association="FinalHRMModel.FK__EmployeeN__Emplo__1DE57479" ManuallyRouted="false" />
+        <AssociationConnector Association="FinalHRMModel.FK__TakePartI__Emplo__2A4B4B5E" ManuallyRouted="false" />
+        <AssociationConnector Association="FinalHRMModel.FK__EmployJob__Caree__239E4DCF" ManuallyRouted="false" />
+        <AssociationConnector Association="FinalHRMModel.FK__EmployJob__Emplo__22AA2996" ManuallyRouted="false" />
+        <AssociationConnector Association="FinalHRMModel.FK__HistoryTa__Emplo__2E1BDC42" ManuallyRouted="false" />
+        <AssociationConnector Association="FinalHRMModel.FK__HistoryTa__Proj___2D27B809" ManuallyRouted="false" />
+        <AssociationConnector Association="FinalHRMModel.FK__JobOfDep__Job_ID__173876EA" ManuallyRouted="false" />
+        <AssociationConnector Association="FinalHRMModel.FK__TakePartI__Proj___29572725" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

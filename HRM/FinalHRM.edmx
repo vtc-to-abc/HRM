@@ -1,0 +1,1347 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="FinalHRMModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="username" />
+          </Key>
+          <Property Name="username" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="pass" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="Dep_ID" />
+          </Key>
+          <Property Name="Dep_ID" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Dep_Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Manager_ID" Type="nvarchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="EmployeeNow">
+          <Key>
+            <PropertyRef Name="Employ_ID" />
+          </Key>
+          <Property Name="Employ_ID" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Career_ID" Type="nvarchar" MaxLength="10" />
+          <Property Name="salary" Type="int" />
+        </EntityType>
+        <EntityType Name="EmployJobProfile">
+          <Key>
+            <PropertyRef Name="Employ_ID" />
+            <PropertyRef Name="Career_ID" />
+          </Key>
+          <Property Name="Employ_ID" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Career_ID" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="date_started" Type="date" />
+          <Property Name="date_end" Type="date" />
+        </EntityType>
+        <EntityType Name="HistoryEmployee">
+          <Key>
+            <PropertyRef Name="Employ_ID" />
+          </Key>
+          <Property Name="Employ_ID" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Employ_Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="DoB" Type="date" />
+          <Property Name="Sex" Type="nvarchar" MaxLength="10" />
+          <Property Name="Email" Type="nvarchar" MaxLength="255" />
+          <Property Name="Phone_Number" Type="nchar" MaxLength="11" />
+          <Property Name="joindate" Type="date" />
+          <Property Name="work_status" Type="nvarchar" MaxLength="50" />
+          <Property Name="quitdate" Type="date" />
+        </EntityType>
+        <EntityType Name="HistoryTakePartIn">
+          <Key>
+            <PropertyRef Name="Proj_ID" />
+            <PropertyRef Name="Employ_ID" />
+          </Key>
+          <Property Name="Proj_ID" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Employ_ID" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="date_join" Type="date" />
+          <Property Name="Note" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="JobOfDep">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Dep_ID" Type="nvarchar" MaxLength="10" />
+          <Property Name="Job_ID" Type="nvarchar" MaxLength="10" />
+          <Property Name="name" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Jobs">
+          <Key>
+            <PropertyRef Name="Job_ID" />
+          </Key>
+          <Property Name="Job_ID" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Job_Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="Proj_ID" />
+          </Key>
+          <Property Name="Proj_ID" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Proj_Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="date_start" Type="date" />
+          <Property Name="Proj_status" Type="nvarchar" MaxLength="50" />
+          <Property Name="Note" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="TakePartInNow">
+          <Key>
+            <PropertyRef Name="Proj_ID" />
+            <PropertyRef Name="Employ_ID" />
+          </Key>
+          <Property Name="Proj_ID" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Employ_ID" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="date_join" Type="date" />
+        </EntityType>
+        <Association Name="FK__Departmen__Manag__1FCDBCEB">
+          <End Role="EmployeeNow" Type="Self.EmployeeNow" Multiplicity="0..1" />
+          <End Role="Department" Type="Self.Department" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeNow">
+              <PropertyRef Name="Employ_ID" />
+            </Principal>
+            <Dependent Role="Department">
+              <PropertyRef Name="Manager_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EmployeeN__Caree__1ED998B2">
+          <End Role="JobOfDep" Type="Self.JobOfDep" Multiplicity="0..1" />
+          <End Role="EmployeeNow" Type="Self.EmployeeNow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="JobOfDep">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="EmployeeNow">
+              <PropertyRef Name="Career_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EmployeeN__Emplo__1DE57479">
+          <End Role="HistoryEmployee" Type="Self.HistoryEmployee" Multiplicity="1" />
+          <End Role="EmployeeNow" Type="Self.EmployeeNow" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="HistoryEmployee">
+              <PropertyRef Name="Employ_ID" />
+            </Principal>
+            <Dependent Role="EmployeeNow">
+              <PropertyRef Name="Employ_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EmployJob__Caree__239E4DCF">
+          <End Role="JobOfDep" Type="Self.JobOfDep" Multiplicity="1" />
+          <End Role="EmployJobProfile" Type="Self.EmployJobProfile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="JobOfDep">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="EmployJobProfile">
+              <PropertyRef Name="Career_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EmployJob__Emplo__22AA2996">
+          <End Role="HistoryEmployee" Type="Self.HistoryEmployee" Multiplicity="1" />
+          <End Role="EmployJobProfile" Type="Self.EmployJobProfile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HistoryEmployee">
+              <PropertyRef Name="Employ_ID" />
+            </Principal>
+            <Dependent Role="EmployJobProfile">
+              <PropertyRef Name="Employ_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__HistoryTa__Emplo__2E1BDC42">
+          <End Role="HistoryEmployee" Type="Self.HistoryEmployee" Multiplicity="1" />
+          <End Role="HistoryTakePartIn" Type="Self.HistoryTakePartIn" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HistoryEmployee">
+              <PropertyRef Name="Employ_ID" />
+            </Principal>
+            <Dependent Role="HistoryTakePartIn">
+              <PropertyRef Name="Employ_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__HistoryTa__Proj___2D27B809">
+          <End Role="Project" Type="Self.Project" Multiplicity="1" />
+          <End Role="HistoryTakePartIn" Type="Self.HistoryTakePartIn" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="Proj_ID" />
+            </Principal>
+            <Dependent Role="HistoryTakePartIn">
+              <PropertyRef Name="Proj_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__JobOfDep__Dep_ID__164452B1">
+          <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+          <End Role="JobOfDep" Type="Self.JobOfDep" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="Dep_ID" />
+            </Principal>
+            <Dependent Role="JobOfDep">
+              <PropertyRef Name="Dep_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__JobOfDep__Job_ID__173876EA">
+          <End Role="Jobs" Type="Self.Jobs" Multiplicity="0..1" />
+          <End Role="JobOfDep" Type="Self.JobOfDep" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Jobs">
+              <PropertyRef Name="Job_ID" />
+            </Principal>
+            <Dependent Role="JobOfDep">
+              <PropertyRef Name="Job_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TakePartI__Emplo__2A4B4B5E">
+          <End Role="EmployeeNow" Type="Self.EmployeeNow" Multiplicity="1" />
+          <End Role="TakePartInNow" Type="Self.TakePartInNow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeNow">
+              <PropertyRef Name="Employ_ID" />
+            </Principal>
+            <Dependent Role="TakePartInNow">
+              <PropertyRef Name="Employ_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TakePartI__Proj___29572725">
+          <End Role="Project" Type="Self.Project" Multiplicity="1" />
+          <End Role="TakePartInNow" Type="Self.TakePartInNow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="Proj_ID" />
+            </Principal>
+            <Dependent Role="TakePartInNow">
+              <PropertyRef Name="Proj_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="del_EmplowNow" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="del_TakePartInNow" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="projid" Type="nvarchar" Mode="In" />
+          <Parameter Name="emid" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="Dep_Search" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="search" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="Employ_Search" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="search" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="Employ_Search_History" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="search" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="new_acc" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="acc" Type="nvarchar" Mode="In" />
+          <Parameter Name="pass" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="new_Dep" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="dep_id" Type="nvarchar" Mode="In" />
+          <Parameter Name="dep_name" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="new_Employee" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="emid" Type="nvarchar" Mode="In" />
+          <Parameter Name="emname" Type="nvarchar" Mode="In" />
+          <Parameter Name="dob" Type="date" Mode="In" />
+          <Parameter Name="sex" Type="nvarchar" Mode="In" />
+          <Parameter Name="email" Type="nvarchar" Mode="In" />
+          <Parameter Name="phone" Type="nvarchar" Mode="In" />
+          <Parameter Name="join" Type="date" Mode="In" />
+          <Parameter Name="Career" Type="nvarchar" Mode="In" />
+          <Parameter Name="salary" Type="int" Mode="In" />
+        </Function>
+        <Function Name="new_Jobs" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="jobid" Type="nvarchar" Mode="In" />
+          <Parameter Name="jobname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="new_Profile" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="emid" Type="nvarchar" Mode="In" />
+          <Parameter Name="career" Type="nvarchar" Mode="In" />
+          <Parameter Name="datestart" Type="date" Mode="In" />
+          <Parameter Name="dateend" Type="date" Mode="In" />
+        </Function>
+        <Function Name="new_proj" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="projid" Type="nvarchar" Mode="In" />
+          <Parameter Name="projname" Type="nvarchar" Mode="In" />
+          <Parameter Name="date" Type="date" Mode="In" />
+          <Parameter Name="status" Type="nvarchar" Mode="In" />
+          <Parameter Name="Note" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="new_tpi" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="projid" Type="nvarchar" Mode="In" />
+          <Parameter Name="empid" Type="nvarchar" Mode="In" />
+          <Parameter Name="date" Type="date" Mode="In" />
+        </Function>
+        <Function Name="output_AllDep" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="output_AllJob" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="output_AllJoD" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="output_AllProfile" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="output_AllProj" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="output_Employ_Dep" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="depid" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="output_Employ_Job" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="jobid" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="output_Employ_Job_History" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="employ" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="output_Employ_Proj" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="projid" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="output_Employnow" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="output_HistoryEmploy" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="output_TPIHistory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="output_TPINow" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="Profile_Search" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="search" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="Proj_Search" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="search" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="TPI_His_Search" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="search" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="update_dep" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="depid" Type="nvarchar" Mode="In" />
+          <Parameter Name="depname" Type="nvarchar" Mode="In" />
+          <Parameter Name="manager" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="update_empl" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="emid" Type="nvarchar" Mode="In" />
+          <Parameter Name="emname" Type="nvarchar" Mode="In" />
+          <Parameter Name="dob" Type="date" Mode="In" />
+          <Parameter Name="sex" Type="nvarchar" Mode="In" />
+          <Parameter Name="email" Type="nvarchar" Mode="In" />
+          <Parameter Name="phone" Type="nvarchar" Mode="In" />
+          <Parameter Name="join" Type="date" Mode="In" />
+          <Parameter Name="Career" Type="nvarchar" Mode="In" />
+          <Parameter Name="salary" Type="int" Mode="In" />
+        </Function>
+        <Function Name="update_job" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="jobid" Type="nvarchar" Mode="In" />
+          <Parameter Name="jobname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="update_Proj" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="projid" Type="nvarchar" Mode="In" />
+          <Parameter Name="projname" Type="nvarchar" Mode="In" />
+          <Parameter Name="date" Type="date" Mode="In" />
+          <Parameter Name="status" Type="nvarchar" Mode="In" />
+          <Parameter Name="Note" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="update_TPI" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="projid" Type="nvarchar" Mode="In" />
+          <Parameter Name="empid" Type="nvarchar" Mode="In" />
+          <Parameter Name="date" Type="date" Mode="In" />
+          <Parameter Name="Note" Type="nvarchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="FinalHRMModelStoreContainer">
+          <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmployeeNow" EntityType="Self.EmployeeNow" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmployJobProfile" EntityType="Self.EmployJobProfile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HistoryEmployee" EntityType="Self.HistoryEmployee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HistoryTakePartIn" EntityType="Self.HistoryTakePartIn" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="JobOfDep" EntityType="Self.JobOfDep" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Jobs" EntityType="Self.Jobs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Project" EntityType="Self.Project" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TakePartInNow" EntityType="Self.TakePartInNow" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Departmen__Manag__1FCDBCEB" Association="Self.FK__Departmen__Manag__1FCDBCEB">
+            <End Role="EmployeeNow" EntitySet="EmployeeNow" />
+            <End Role="Department" EntitySet="Department" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EmployeeN__Caree__1ED998B2" Association="Self.FK__EmployeeN__Caree__1ED998B2">
+            <End Role="JobOfDep" EntitySet="JobOfDep" />
+            <End Role="EmployeeNow" EntitySet="EmployeeNow" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EmployeeN__Emplo__1DE57479" Association="Self.FK__EmployeeN__Emplo__1DE57479">
+            <End Role="HistoryEmployee" EntitySet="HistoryEmployee" />
+            <End Role="EmployeeNow" EntitySet="EmployeeNow" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EmployJob__Caree__239E4DCF" Association="Self.FK__EmployJob__Caree__239E4DCF">
+            <End Role="JobOfDep" EntitySet="JobOfDep" />
+            <End Role="EmployJobProfile" EntitySet="EmployJobProfile" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EmployJob__Emplo__22AA2996" Association="Self.FK__EmployJob__Emplo__22AA2996">
+            <End Role="HistoryEmployee" EntitySet="HistoryEmployee" />
+            <End Role="EmployJobProfile" EntitySet="EmployJobProfile" />
+          </AssociationSet>
+          <AssociationSet Name="FK__HistoryTa__Emplo__2E1BDC42" Association="Self.FK__HistoryTa__Emplo__2E1BDC42">
+            <End Role="HistoryEmployee" EntitySet="HistoryEmployee" />
+            <End Role="HistoryTakePartIn" EntitySet="HistoryTakePartIn" />
+          </AssociationSet>
+          <AssociationSet Name="FK__HistoryTa__Proj___2D27B809" Association="Self.FK__HistoryTa__Proj___2D27B809">
+            <End Role="Project" EntitySet="Project" />
+            <End Role="HistoryTakePartIn" EntitySet="HistoryTakePartIn" />
+          </AssociationSet>
+          <AssociationSet Name="FK__JobOfDep__Dep_ID__164452B1" Association="Self.FK__JobOfDep__Dep_ID__164452B1">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="JobOfDep" EntitySet="JobOfDep" />
+          </AssociationSet>
+          <AssociationSet Name="FK__JobOfDep__Job_ID__173876EA" Association="Self.FK__JobOfDep__Job_ID__173876EA">
+            <End Role="Jobs" EntitySet="Jobs" />
+            <End Role="JobOfDep" EntitySet="JobOfDep" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TakePartI__Emplo__2A4B4B5E" Association="Self.FK__TakePartI__Emplo__2A4B4B5E">
+            <End Role="EmployeeNow" EntitySet="EmployeeNow" />
+            <End Role="TakePartInNow" EntitySet="TakePartInNow" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TakePartI__Proj___29572725" Association="Self.FK__TakePartI__Proj___29572725">
+            <End Role="Project" EntitySet="Project" />
+            <End Role="TakePartInNow" EntitySet="TakePartInNow" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FinalHRMModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="username" />
+          </Key>
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="pass" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="Dep_ID" />
+          </Key>
+          <Property Name="Dep_ID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Dep_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Manager_ID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="EmployeeNow" Relationship="Self.FK__Departmen__Manag__1FCDBCEB" FromRole="Department" ToRole="EmployeeNow" />
+          <NavigationProperty Name="JobOfDeps" Relationship="Self.FK__JobOfDep__Dep_ID__164452B1" FromRole="Department" ToRole="JobOfDep" />
+        </EntityType>
+        <EntityType Name="EmployeeNow">
+          <Key>
+            <PropertyRef Name="Employ_ID" />
+          </Key>
+          <Property Name="Employ_ID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Career_ID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="salary" Type="Int32" />
+          <NavigationProperty Name="Departments" Relationship="Self.FK__Departmen__Manag__1FCDBCEB" FromRole="EmployeeNow" ToRole="Department" />
+          <NavigationProperty Name="JobOfDep" Relationship="Self.FK__EmployeeN__Caree__1ED998B2" FromRole="EmployeeNow" ToRole="JobOfDep" />
+          <NavigationProperty Name="HistoryEmployee" Relationship="Self.FK__EmployeeN__Emplo__1DE57479" FromRole="EmployeeNow" ToRole="HistoryEmployee" />
+          <NavigationProperty Name="TakePartInNows" Relationship="Self.FK__TakePartI__Emplo__2A4B4B5E" FromRole="EmployeeNow" ToRole="TakePartInNow" />
+        </EntityType>
+        <EntityType Name="EmployJobProfile">
+          <Key>
+            <PropertyRef Name="Employ_ID" />
+            <PropertyRef Name="Career_ID" />
+          </Key>
+          <Property Name="Employ_ID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Career_ID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="date_started" Type="DateTime" Precision="0" />
+          <Property Name="date_end" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="JobOfDep" Relationship="Self.FK__EmployJob__Caree__239E4DCF" FromRole="EmployJobProfile" ToRole="JobOfDep" />
+          <NavigationProperty Name="HistoryEmployee" Relationship="Self.FK__EmployJob__Emplo__22AA2996" FromRole="EmployJobProfile" ToRole="HistoryEmployee" />
+        </EntityType>
+        <EntityType Name="HistoryEmployee">
+          <Key>
+            <PropertyRef Name="Employ_ID" />
+          </Key>
+          <Property Name="Employ_ID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Employ_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DoB" Type="DateTime" Precision="0" />
+          <Property Name="Sex" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Phone_Number" Type="String" MaxLength="11" FixedLength="true" Unicode="true" />
+          <Property Name="joindate" Type="DateTime" Precision="0" />
+          <Property Name="work_status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="quitdate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="EmployeeNow" Relationship="Self.FK__EmployeeN__Emplo__1DE57479" FromRole="HistoryEmployee" ToRole="EmployeeNow" />
+          <NavigationProperty Name="EmployJobProfiles" Relationship="Self.FK__EmployJob__Emplo__22AA2996" FromRole="HistoryEmployee" ToRole="EmployJobProfile" />
+          <NavigationProperty Name="HistoryTakePartIns" Relationship="Self.FK__HistoryTa__Emplo__2E1BDC42" FromRole="HistoryEmployee" ToRole="HistoryTakePartIn" />
+        </EntityType>
+        <EntityType Name="HistoryTakePartIn">
+          <Key>
+            <PropertyRef Name="Proj_ID" />
+            <PropertyRef Name="Employ_ID" />
+          </Key>
+          <Property Name="Proj_ID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Employ_ID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="date_join" Type="DateTime" Precision="0" />
+          <Property Name="Note" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="HistoryEmployee" Relationship="Self.FK__HistoryTa__Emplo__2E1BDC42" FromRole="HistoryTakePartIn" ToRole="HistoryEmployee" />
+          <NavigationProperty Name="Project" Relationship="Self.FK__HistoryTa__Proj___2D27B809" FromRole="HistoryTakePartIn" ToRole="Project" />
+        </EntityType>
+        <EntityType Name="JobOfDep">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Dep_ID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Job_ID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Department" Relationship="Self.FK__JobOfDep__Dep_ID__164452B1" FromRole="JobOfDep" ToRole="Department" />
+          <NavigationProperty Name="EmployeeNows" Relationship="Self.FK__EmployeeN__Caree__1ED998B2" FromRole="JobOfDep" ToRole="EmployeeNow" />
+          <NavigationProperty Name="EmployJobProfiles" Relationship="Self.FK__EmployJob__Caree__239E4DCF" FromRole="JobOfDep" ToRole="EmployJobProfile" />
+          <NavigationProperty Name="Job" Relationship="Self.FK__JobOfDep__Job_ID__173876EA" FromRole="JobOfDep" ToRole="Jobs" />
+        </EntityType>
+        <EntityType Name="Job">
+          <Key>
+            <PropertyRef Name="Job_ID" />
+          </Key>
+          <Property Name="Job_ID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Job_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="JobOfDeps" Relationship="Self.FK__JobOfDep__Job_ID__173876EA" FromRole="Jobs" ToRole="JobOfDep" />
+        </EntityType>
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="Proj_ID" />
+          </Key>
+          <Property Name="Proj_ID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Proj_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="date_start" Type="DateTime" Precision="0" />
+          <Property Name="Proj_status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Note" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="HistoryTakePartIns" Relationship="Self.FK__HistoryTa__Proj___2D27B809" FromRole="Project" ToRole="HistoryTakePartIn" />
+          <NavigationProperty Name="TakePartInNows" Relationship="Self.FK__TakePartI__Proj___29572725" FromRole="Project" ToRole="TakePartInNow" />
+        </EntityType>
+        <EntityType Name="TakePartInNow">
+          <Key>
+            <PropertyRef Name="Proj_ID" />
+            <PropertyRef Name="Employ_ID" />
+          </Key>
+          <Property Name="Proj_ID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Employ_ID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="date_join" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="EmployeeNow" Relationship="Self.FK__TakePartI__Emplo__2A4B4B5E" FromRole="TakePartInNow" ToRole="EmployeeNow" />
+          <NavigationProperty Name="Project" Relationship="Self.FK__TakePartI__Proj___29572725" FromRole="TakePartInNow" ToRole="Project" />
+        </EntityType>
+        <Association Name="FK__Departmen__Manag__1FCDBCEB">
+          <End Role="EmployeeNow" Type="Self.EmployeeNow" Multiplicity="0..1" />
+          <End Role="Department" Type="Self.Department" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeNow">
+              <PropertyRef Name="Employ_ID" />
+            </Principal>
+            <Dependent Role="Department">
+              <PropertyRef Name="Manager_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__JobOfDep__Dep_ID__164452B1">
+          <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+          <End Role="JobOfDep" Type="Self.JobOfDep" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="Dep_ID" />
+            </Principal>
+            <Dependent Role="JobOfDep">
+              <PropertyRef Name="Dep_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EmployeeN__Caree__1ED998B2">
+          <End Role="JobOfDep" Type="Self.JobOfDep" Multiplicity="0..1" />
+          <End Role="EmployeeNow" Type="Self.EmployeeNow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="JobOfDep">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="EmployeeNow">
+              <PropertyRef Name="Career_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EmployeeN__Emplo__1DE57479">
+          <End Role="HistoryEmployee" Type="Self.HistoryEmployee" Multiplicity="1" />
+          <End Role="EmployeeNow" Type="Self.EmployeeNow" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="HistoryEmployee">
+              <PropertyRef Name="Employ_ID" />
+            </Principal>
+            <Dependent Role="EmployeeNow">
+              <PropertyRef Name="Employ_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TakePartI__Emplo__2A4B4B5E">
+          <End Role="EmployeeNow" Type="Self.EmployeeNow" Multiplicity="1" />
+          <End Role="TakePartInNow" Type="Self.TakePartInNow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeNow">
+              <PropertyRef Name="Employ_ID" />
+            </Principal>
+            <Dependent Role="TakePartInNow">
+              <PropertyRef Name="Employ_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EmployJob__Caree__239E4DCF">
+          <End Role="JobOfDep" Type="Self.JobOfDep" Multiplicity="1" />
+          <End Role="EmployJobProfile" Type="Self.EmployJobProfile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="JobOfDep">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="EmployJobProfile">
+              <PropertyRef Name="Career_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EmployJob__Emplo__22AA2996">
+          <End Role="HistoryEmployee" Type="Self.HistoryEmployee" Multiplicity="1" />
+          <End Role="EmployJobProfile" Type="Self.EmployJobProfile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HistoryEmployee">
+              <PropertyRef Name="Employ_ID" />
+            </Principal>
+            <Dependent Role="EmployJobProfile">
+              <PropertyRef Name="Employ_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__HistoryTa__Emplo__2E1BDC42">
+          <End Role="HistoryEmployee" Type="Self.HistoryEmployee" Multiplicity="1" />
+          <End Role="HistoryTakePartIn" Type="Self.HistoryTakePartIn" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HistoryEmployee">
+              <PropertyRef Name="Employ_ID" />
+            </Principal>
+            <Dependent Role="HistoryTakePartIn">
+              <PropertyRef Name="Employ_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__HistoryTa__Proj___2D27B809">
+          <End Role="Project" Type="Self.Project" Multiplicity="1" />
+          <End Role="HistoryTakePartIn" Type="Self.HistoryTakePartIn" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="Proj_ID" />
+            </Principal>
+            <Dependent Role="HistoryTakePartIn">
+              <PropertyRef Name="Proj_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__JobOfDep__Job_ID__173876EA">
+          <End Role="Jobs" Type="Self.Job" Multiplicity="0..1" />
+          <End Role="JobOfDep" Type="Self.JobOfDep" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Jobs">
+              <PropertyRef Name="Job_ID" />
+            </Principal>
+            <Dependent Role="JobOfDep">
+              <PropertyRef Name="Job_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TakePartI__Proj___29572725">
+          <End Role="Project" Type="Self.Project" Multiplicity="1" />
+          <End Role="TakePartInNow" Type="Self.TakePartInNow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="Proj_ID" />
+            </Principal>
+            <Dependent Role="TakePartInNow">
+              <PropertyRef Name="Proj_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="FinalHRMEntities6" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Accounts" EntityType="Self.Account" />
+          <EntitySet Name="Departments" EntityType="Self.Department" />
+          <EntitySet Name="EmployeeNows" EntityType="Self.EmployeeNow" />
+          <EntitySet Name="EmployJobProfiles" EntityType="Self.EmployJobProfile" />
+          <EntitySet Name="HistoryEmployees" EntityType="Self.HistoryEmployee" />
+          <EntitySet Name="HistoryTakePartIns" EntityType="Self.HistoryTakePartIn" />
+          <EntitySet Name="JobOfDeps" EntityType="Self.JobOfDep" />
+          <EntitySet Name="Jobs" EntityType="Self.Job" />
+          <EntitySet Name="Projects" EntityType="Self.Project" />
+          <EntitySet Name="TakePartInNows" EntityType="Self.TakePartInNow" />
+          <AssociationSet Name="FK__Departmen__Manag__1FCDBCEB" Association="Self.FK__Departmen__Manag__1FCDBCEB">
+            <End Role="EmployeeNow" EntitySet="EmployeeNows" />
+            <End Role="Department" EntitySet="Departments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__JobOfDep__Dep_ID__164452B1" Association="Self.FK__JobOfDep__Dep_ID__164452B1">
+            <End Role="Department" EntitySet="Departments" />
+            <End Role="JobOfDep" EntitySet="JobOfDeps" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EmployeeN__Caree__1ED998B2" Association="Self.FK__EmployeeN__Caree__1ED998B2">
+            <End Role="JobOfDep" EntitySet="JobOfDeps" />
+            <End Role="EmployeeNow" EntitySet="EmployeeNows" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EmployeeN__Emplo__1DE57479" Association="Self.FK__EmployeeN__Emplo__1DE57479">
+            <End Role="HistoryEmployee" EntitySet="HistoryEmployees" />
+            <End Role="EmployeeNow" EntitySet="EmployeeNows" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TakePartI__Emplo__2A4B4B5E" Association="Self.FK__TakePartI__Emplo__2A4B4B5E">
+            <End Role="EmployeeNow" EntitySet="EmployeeNows" />
+            <End Role="TakePartInNow" EntitySet="TakePartInNows" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EmployJob__Caree__239E4DCF" Association="Self.FK__EmployJob__Caree__239E4DCF">
+            <End Role="JobOfDep" EntitySet="JobOfDeps" />
+            <End Role="EmployJobProfile" EntitySet="EmployJobProfiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EmployJob__Emplo__22AA2996" Association="Self.FK__EmployJob__Emplo__22AA2996">
+            <End Role="HistoryEmployee" EntitySet="HistoryEmployees" />
+            <End Role="EmployJobProfile" EntitySet="EmployJobProfiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK__HistoryTa__Emplo__2E1BDC42" Association="Self.FK__HistoryTa__Emplo__2E1BDC42">
+            <End Role="HistoryEmployee" EntitySet="HistoryEmployees" />
+            <End Role="HistoryTakePartIn" EntitySet="HistoryTakePartIns" />
+          </AssociationSet>
+          <AssociationSet Name="FK__HistoryTa__Proj___2D27B809" Association="Self.FK__HistoryTa__Proj___2D27B809">
+            <End Role="Project" EntitySet="Projects" />
+            <End Role="HistoryTakePartIn" EntitySet="HistoryTakePartIns" />
+          </AssociationSet>
+          <AssociationSet Name="FK__JobOfDep__Job_ID__173876EA" Association="Self.FK__JobOfDep__Job_ID__173876EA">
+            <End Role="Jobs" EntitySet="Jobs" />
+            <End Role="JobOfDep" EntitySet="JobOfDeps" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TakePartI__Proj___29572725" Association="Self.FK__TakePartI__Proj___29572725">
+            <End Role="Project" EntitySet="Projects" />
+            <End Role="TakePartInNow" EntitySet="TakePartInNows" />
+          </AssociationSet>
+          <FunctionImport Name="del_EmplowNow">
+            <Parameter Name="id" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="del_TakePartInNow">
+            <Parameter Name="projid" Mode="In" Type="String" />
+            <Parameter Name="emid" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Dep_Search" ReturnType="Collection(FinalHRMModel.Dep_Search_Result)">
+            <Parameter Name="search" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Employ_Search" ReturnType="Collection(FinalHRMModel.Employ_Search_Result)">
+            <Parameter Name="search" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Employ_Search_History" ReturnType="Collection(FinalHRMModel.Employ_Search_History_Result)">
+            <Parameter Name="search" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="new_acc">
+            <Parameter Name="acc" Mode="In" Type="String" />
+            <Parameter Name="pass" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="new_Dep">
+            <Parameter Name="dep_id" Mode="In" Type="String" />
+            <Parameter Name="dep_name" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="new_Employee">
+            <Parameter Name="emid" Mode="In" Type="String" />
+            <Parameter Name="emname" Mode="In" Type="String" />
+            <Parameter Name="dob" Mode="In" Type="DateTime" />
+            <Parameter Name="sex" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="phone" Mode="In" Type="String" />
+            <Parameter Name="join" Mode="In" Type="DateTime" />
+            <Parameter Name="Career" Mode="In" Type="String" />
+            <Parameter Name="salary" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="new_Jobs">
+            <Parameter Name="jobid" Mode="In" Type="String" />
+            <Parameter Name="jobname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="new_Profile">
+            <Parameter Name="emid" Mode="In" Type="String" />
+            <Parameter Name="career" Mode="In" Type="String" />
+            <Parameter Name="datestart" Mode="In" Type="DateTime" />
+            <Parameter Name="dateend" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="new_proj">
+            <Parameter Name="projid" Mode="In" Type="String" />
+            <Parameter Name="projname" Mode="In" Type="String" />
+            <Parameter Name="date" Mode="In" Type="DateTime" />
+            <Parameter Name="status" Mode="In" Type="String" />
+            <Parameter Name="Note" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="new_tpi">
+            <Parameter Name="projid" Mode="In" Type="String" />
+            <Parameter Name="empid" Mode="In" Type="String" />
+            <Parameter Name="date" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="output_AllDep" ReturnType="Collection(FinalHRMModel.output_AllDep_Result)" />
+          <FunctionImport Name="output_AllJob" ReturnType="Collection(FinalHRMModel.output_AllJob_Result)" />
+          <FunctionImport Name="output_AllJoD" ReturnType="Collection(FinalHRMModel.output_AllJoD_Result)" />
+          <FunctionImport Name="output_AllProfile" ReturnType="Collection(FinalHRMModel.output_AllProfile_Result)" />
+          <FunctionImport Name="output_AllProj" ReturnType="Collection(FinalHRMModel.output_AllProj_Result)" />
+          <FunctionImport Name="output_Employ_Dep" ReturnType="Collection(FinalHRMModel.output_Employ_Dep_Result)">
+            <Parameter Name="depid" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="output_Employ_Job" ReturnType="Collection(FinalHRMModel.output_Employ_Job_Result)">
+            <Parameter Name="jobid" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="output_Employ_Job_History" ReturnType="Collection(FinalHRMModel.output_Employ_Job_History_Result)">
+            <Parameter Name="employ" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="output_Employ_Proj" ReturnType="Collection(FinalHRMModel.output_Employ_Proj_Result)">
+            <Parameter Name="projid" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="output_Employnow" ReturnType="Collection(FinalHRMModel.output_Employnow_Result)" />
+          <FunctionImport Name="output_HistoryEmploy" ReturnType="Collection(FinalHRMModel.output_HistoryEmploy_Result)" />
+          <FunctionImport Name="output_TPIHistory" ReturnType="Collection(FinalHRMModel.output_TPIHistory_Result)" />
+          <FunctionImport Name="output_TPINow" ReturnType="Collection(FinalHRMModel.output_TPINow_Result)" />
+          <FunctionImport Name="Profile_Search" ReturnType="Collection(FinalHRMModel.Profile_Search_Result)">
+            <Parameter Name="search" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Proj_Search" ReturnType="Collection(FinalHRMModel.Proj_Search_Result)">
+            <Parameter Name="search" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="TPI_His_Search" ReturnType="Collection(FinalHRMModel.TPI_His_Search_Result)">
+            <Parameter Name="search" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="update_dep">
+            <Parameter Name="depid" Mode="In" Type="String" />
+            <Parameter Name="depname" Mode="In" Type="String" />
+            <Parameter Name="manager" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="update_empl">
+            <Parameter Name="emid" Mode="In" Type="String" />
+            <Parameter Name="emname" Mode="In" Type="String" />
+            <Parameter Name="dob" Mode="In" Type="DateTime" />
+            <Parameter Name="sex" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="phone" Mode="In" Type="String" />
+            <Parameter Name="join" Mode="In" Type="DateTime" />
+            <Parameter Name="Career" Mode="In" Type="String" />
+            <Parameter Name="salary" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="update_job">
+            <Parameter Name="jobid" Mode="In" Type="String" />
+            <Parameter Name="jobname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="update_Proj">
+            <Parameter Name="projid" Mode="In" Type="String" />
+            <Parameter Name="projname" Mode="In" Type="String" />
+            <Parameter Name="date" Mode="In" Type="DateTime" />
+            <Parameter Name="status" Mode="In" Type="String" />
+            <Parameter Name="Note" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="update_TPI">
+            <Parameter Name="projid" Mode="In" Type="String" />
+            <Parameter Name="empid" Mode="In" Type="String" />
+            <Parameter Name="date" Mode="In" Type="DateTime" />
+            <Parameter Name="Note" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="Dep_Search_Result">
+          <Property Type="String" Name="Dep_ID" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="Dep_Name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Manager_ID" Nullable="true" MaxLength="10" />
+        </ComplexType>
+        <ComplexType Name="Employ_Search_Result">
+          <Property Type="String" Name="Employ_ID" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="Employ_Name" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="DoB" Nullable="true" />
+          <Property Type="String" Name="Sex" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="Phone_Number" Nullable="true" MaxLength="11" />
+          <Property Type="String" Name="Dep_Name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Job_Name" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="salary" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="Employ_Search_History_Result">
+          <Property Type="String" Name="Employ_ID" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="Employ_Name" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="DoB" Nullable="true" />
+          <Property Type="String" Name="Sex" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="Phone_Number" Nullable="true" MaxLength="11" />
+          <Property Type="DateTime" Name="joindate" Nullable="true" />
+          <Property Type="String" Name="work_status" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="quitdate" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="output_AllDep_Result">
+          <Property Type="String" Name="Dep_ID" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="Dep_Name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Manager_ID" Nullable="true" MaxLength="10" />
+        </ComplexType>
+        <ComplexType Name="output_AllJob_Result">
+          <Property Type="String" Name="Job_ID" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="Job_Name" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="output_AllJoD_Result">
+          <Property Type="String" Name="Dep_Name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Job_Name" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="output_AllProfile_Result">
+          <Property Type="String" Name="Employ_ID" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="Employ_Name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Dep_Name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Job_Name" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="date_started" Nullable="true" />
+          <Property Type="DateTime" Name="date_end" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="output_AllProj_Result">
+          <Property Type="String" Name="Proj_ID" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="Proj_Name" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="date_start" Nullable="true" />
+          <Property Type="String" Name="Proj_status" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Note" Nullable="true" MaxLength="255" />
+        </ComplexType>
+        <ComplexType Name="output_Employ_Dep_Result">
+          <Property Type="String" Name="Employ_ID" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="Employ_Name" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="DoB" Nullable="true" />
+          <Property Type="String" Name="Sex" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="Job_Name" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="salary" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="output_Employ_Job_Result">
+          <Property Type="String" Name="Employ_ID" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="Employ_Name" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="DoB" Nullable="true" />
+          <Property Type="String" Name="Sex" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="work_status" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="output_Employ_Job_History_Result">
+          <Property Type="String" Name="Employ_ID" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="Employ_Name" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="DoB" Nullable="true" />
+          <Property Type="String" Name="Sex" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="Dep_Name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Job_Name" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="date_started" Nullable="true" />
+          <Property Type="DateTime" Name="date_end" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="output_Employ_Proj_Result">
+          <Property Type="String" Name="Employ_ID" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="Employ_Name" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="DoB" Nullable="true" />
+          <Property Type="String" Name="Sex" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="Dep_Name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Job_Name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="work_status" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="output_Employnow_Result">
+          <Property Type="String" Name="Employ_ID" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="Employ_Name" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="DoB" Nullable="true" />
+          <Property Type="String" Name="Sex" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="Phone_Number" Nullable="true" MaxLength="11" />
+          <Property Type="String" Name="Dep_Name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Job_Name" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="salary" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="output_HistoryEmploy_Result">
+          <Property Type="String" Name="Employ_ID" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="Employ_Name" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="DoB" Nullable="true" />
+          <Property Type="String" Name="Sex" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="Phone_Number" Nullable="true" MaxLength="11" />
+          <Property Type="DateTime" Name="joindate" Nullable="true" />
+          <Property Type="String" Name="work_status" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="quitdate" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="output_TPIHistory_Result">
+          <Property Type="String" Name="Proj_Name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Employ_Name" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="date_join" Nullable="true" />
+          <Property Type="String" Name="Note" Nullable="true" MaxLength="255" />
+        </ComplexType>
+        <ComplexType Name="output_TPINow_Result">
+          <Property Type="String" Name="Proj_Name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Employ_Name" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="date_join" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="Profile_Search_Result">
+          <Property Type="String" Name="Employ_ID" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="Employ_Name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Dep_Name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Job_Name" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="date_started" Nullable="true" />
+          <Property Type="DateTime" Name="date_end" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="Proj_Search_Result">
+          <Property Type="String" Name="Proj_ID" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="Proj_Name" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="date_start" Nullable="true" />
+          <Property Type="String" Name="Proj_status" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Note" Nullable="true" MaxLength="255" />
+        </ComplexType>
+        <ComplexType Name="TPI_His_Search_Result">
+          <Property Type="String" Name="Employ_Name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Proj_Name" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="date_join" Nullable="true" />
+          <Property Type="String" Name="Note" Nullable="true" MaxLength="255" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="FinalHRMModelStoreContainer" CdmEntityContainer="FinalHRMEntities6">
+          <EntitySetMapping Name="Accounts">
+            <EntityTypeMapping TypeName="FinalHRMModel.Account">
+              <MappingFragment StoreEntitySet="Account">
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="pass" ColumnName="pass" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Departments">
+            <EntityTypeMapping TypeName="FinalHRMModel.Department">
+              <MappingFragment StoreEntitySet="Department">
+                <ScalarProperty Name="Dep_ID" ColumnName="Dep_ID" />
+                <ScalarProperty Name="Dep_Name" ColumnName="Dep_Name" />
+                <ScalarProperty Name="Manager_ID" ColumnName="Manager_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmployeeNows">
+            <EntityTypeMapping TypeName="FinalHRMModel.EmployeeNow">
+              <MappingFragment StoreEntitySet="EmployeeNow">
+                <ScalarProperty Name="Employ_ID" ColumnName="Employ_ID" />
+                <ScalarProperty Name="Career_ID" ColumnName="Career_ID" />
+                <ScalarProperty Name="salary" ColumnName="salary" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmployJobProfiles">
+            <EntityTypeMapping TypeName="FinalHRMModel.EmployJobProfile">
+              <MappingFragment StoreEntitySet="EmployJobProfile">
+                <ScalarProperty Name="Employ_ID" ColumnName="Employ_ID" />
+                <ScalarProperty Name="Career_ID" ColumnName="Career_ID" />
+                <ScalarProperty Name="date_started" ColumnName="date_started" />
+                <ScalarProperty Name="date_end" ColumnName="date_end" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HistoryEmployees">
+            <EntityTypeMapping TypeName="FinalHRMModel.HistoryEmployee">
+              <MappingFragment StoreEntitySet="HistoryEmployee">
+                <ScalarProperty Name="Employ_ID" ColumnName="Employ_ID" />
+                <ScalarProperty Name="Employ_Name" ColumnName="Employ_Name" />
+                <ScalarProperty Name="DoB" ColumnName="DoB" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone_Number" ColumnName="Phone_Number" />
+                <ScalarProperty Name="joindate" ColumnName="joindate" />
+                <ScalarProperty Name="work_status" ColumnName="work_status" />
+                <ScalarProperty Name="quitdate" ColumnName="quitdate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HistoryTakePartIns">
+            <EntityTypeMapping TypeName="FinalHRMModel.HistoryTakePartIn">
+              <MappingFragment StoreEntitySet="HistoryTakePartIn">
+                <ScalarProperty Name="Proj_ID" ColumnName="Proj_ID" />
+                <ScalarProperty Name="Employ_ID" ColumnName="Employ_ID" />
+                <ScalarProperty Name="date_join" ColumnName="date_join" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="JobOfDeps">
+            <EntityTypeMapping TypeName="FinalHRMModel.JobOfDep">
+              <MappingFragment StoreEntitySet="JobOfDep">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Dep_ID" ColumnName="Dep_ID" />
+                <ScalarProperty Name="Job_ID" ColumnName="Job_ID" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Jobs">
+            <EntityTypeMapping TypeName="FinalHRMModel.Job">
+              <MappingFragment StoreEntitySet="Jobs">
+                <ScalarProperty Name="Job_ID" ColumnName="Job_ID" />
+                <ScalarProperty Name="Job_Name" ColumnName="Job_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Projects">
+            <EntityTypeMapping TypeName="FinalHRMModel.Project">
+              <MappingFragment StoreEntitySet="Project">
+                <ScalarProperty Name="Proj_ID" ColumnName="Proj_ID" />
+                <ScalarProperty Name="Proj_Name" ColumnName="Proj_Name" />
+                <ScalarProperty Name="date_start" ColumnName="date_start" />
+                <ScalarProperty Name="Proj_status" ColumnName="Proj_status" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TakePartInNows">
+            <EntityTypeMapping TypeName="FinalHRMModel.TakePartInNow">
+              <MappingFragment StoreEntitySet="TakePartInNow">
+                <ScalarProperty Name="Proj_ID" ColumnName="Proj_ID" />
+                <ScalarProperty Name="Employ_ID" ColumnName="Employ_ID" />
+                <ScalarProperty Name="date_join" ColumnName="date_join" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="del_EmplowNow" FunctionName="FinalHRMModel.Store.del_EmplowNow" />
+          <FunctionImportMapping FunctionImportName="del_TakePartInNow" FunctionName="FinalHRMModel.Store.del_TakePartInNow" />
+          <FunctionImportMapping FunctionImportName="Dep_Search" FunctionName="FinalHRMModel.Store.Dep_Search">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FinalHRMModel.Dep_Search_Result">
+                <ScalarProperty Name="Dep_ID" ColumnName="Dep_ID" />
+                <ScalarProperty Name="Dep_Name" ColumnName="Dep_Name" />
+                <ScalarProperty Name="Manager_ID" ColumnName="Manager_ID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Employ_Search" FunctionName="FinalHRMModel.Store.Employ_Search">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FinalHRMModel.Employ_Search_Result">
+                <ScalarProperty Name="Employ_ID" ColumnName="Employ_ID" />
+                <ScalarProperty Name="Employ_Name" ColumnName="Employ_Name" />
+                <ScalarProperty Name="DoB" ColumnName="DoB" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone_Number" ColumnName="Phone_Number" />
+                <ScalarProperty Name="Dep_Name" ColumnName="Dep_Name" />
+                <ScalarProperty Name="Job_Name" ColumnName="Job_Name" />
+                <ScalarProperty Name="salary" ColumnName="salary" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Employ_Search_History" FunctionName="FinalHRMModel.Store.Employ_Search_History">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FinalHRMModel.Employ_Search_History_Result">
+                <ScalarProperty Name="Employ_ID" ColumnName="Employ_ID" />
+                <ScalarProperty Name="Employ_Name" ColumnName="Employ_Name" />
+                <ScalarProperty Name="DoB" ColumnName="DoB" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone_Number" ColumnName="Phone_Number" />
+                <ScalarProperty Name="joindate" ColumnName="joindate" />
+                <ScalarProperty Name="work_status" ColumnName="work_status" />
+                <ScalarProperty Name="quitdate" ColumnName="quitdate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="new_acc" FunctionName="FinalHRMModel.Store.new_acc" />
+          <FunctionImportMapping FunctionImportName="new_Dep" FunctionName="FinalHRMModel.Store.new_Dep" />
+          <FunctionImportMapping FunctionImportName="new_Employee" FunctionName="FinalHRMModel.Store.new_Employee" />
+          <FunctionImportMapping FunctionImportName="new_Jobs" FunctionName="FinalHRMModel.Store.new_Jobs" />
+          <FunctionImportMapping FunctionImportName="new_Profile" FunctionName="FinalHRMModel.Store.new_Profile" />
+          <FunctionImportMapping FunctionImportName="new_proj" FunctionName="FinalHRMModel.Store.new_proj" />
+          <FunctionImportMapping FunctionImportName="new_tpi" FunctionName="FinalHRMModel.Store.new_tpi" />
+          <FunctionImportMapping FunctionImportName="output_AllDep" FunctionName="FinalHRMModel.Store.output_AllDep">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FinalHRMModel.output_AllDep_Result">
+                <ScalarProperty Name="Dep_ID" ColumnName="Dep_ID" />
+                <ScalarProperty Name="Dep_Name" ColumnName="Dep_Name" />
+                <ScalarProperty Name="Manager_ID" ColumnName="Manager_ID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="output_AllJob" FunctionName="FinalHRMModel.Store.output_AllJob">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FinalHRMModel.output_AllJob_Result">
+                <ScalarProperty Name="Job_ID" ColumnName="Job_ID" />
+                <ScalarProperty Name="Job_Name" ColumnName="Job_Name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="output_AllJoD" FunctionName="FinalHRMModel.Store.output_AllJoD">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FinalHRMModel.output_AllJoD_Result">
+                <ScalarProperty Name="Dep_Name" ColumnName="Dep_Name" />
+                <ScalarProperty Name="Job_Name" ColumnName="Job_Name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="output_AllProfile" FunctionName="FinalHRMModel.Store.output_AllProfile">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FinalHRMModel.output_AllProfile_Result">
+                <ScalarProperty Name="Employ_ID" ColumnName="Employ_ID" />
+                <ScalarProperty Name="Employ_Name" ColumnName="Employ_Name" />
+                <ScalarProperty Name="Dep_Name" ColumnName="Dep_Name" />
+                <ScalarProperty Name="Job_Name" ColumnName="Job_Name" />
+                <ScalarProperty Name="date_started" ColumnName="date_started" />
+                <ScalarProperty Name="date_end" ColumnName="date_end" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="output_AllProj" FunctionName="FinalHRMModel.Store.output_AllProj">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FinalHRMModel.output_AllProj_Result">
+                <ScalarProperty Name="Proj_ID" ColumnName="Proj_ID" />
+                <ScalarProperty Name="Proj_Name" ColumnName="Proj_Name" />
+                <ScalarProperty Name="date_start" ColumnName="date_start" />
+                <ScalarProperty Name="Proj_status" ColumnName="Proj_status" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="output_Employ_Dep" FunctionName="FinalHRMModel.Store.output_Employ_Dep">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FinalHRMModel.output_Employ_Dep_Result">
+                <ScalarProperty Name="Employ_ID" ColumnName="Employ_ID" />
+                <ScalarProperty Name="Employ_Name" ColumnName="Employ_Name" />
+                <ScalarProperty Name="DoB" ColumnName="DoB" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Job_Name" ColumnName="Job_Name" />
+                <ScalarProperty Name="salary" ColumnName="salary" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="output_Employ_Job" FunctionName="FinalHRMModel.Store.output_Employ_Job">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FinalHRMModel.output_Employ_Job_Result">
+                <ScalarProperty Name="Employ_ID" ColumnName="Employ_ID" />
+                <ScalarProperty Name="Employ_Name" ColumnName="Employ_Name" />
+                <ScalarProperty Name="DoB" ColumnName="DoB" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="work_status" ColumnName="work_status" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="output_Employ_Job_History" FunctionName="FinalHRMModel.Store.output_Employ_Job_History">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FinalHRMModel.output_Employ_Job_History_Result">
+                <ScalarProperty Name="Employ_ID" ColumnName="Employ_ID" />
+                <ScalarProperty Name="Employ_Name" ColumnName="Employ_Name" />
+                <ScalarProperty Name="DoB" ColumnName="DoB" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Dep_Name" ColumnName="Dep_Name" />
+                <ScalarProperty Name="Job_Name" ColumnName="Job_Name" />
+                <ScalarProperty Name="date_started" ColumnName="date_started" />
+                <ScalarProperty Name="date_end" ColumnName="date_end" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="output_Employ_Proj" FunctionName="FinalHRMModel.Store.output_Employ_Proj">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FinalHRMModel.output_Employ_Proj_Result">
+                <ScalarProperty Name="Employ_ID" ColumnName="Employ_ID" />
+                <ScalarProperty Name="Employ_Name" ColumnName="Employ_Name" />
+                <ScalarProperty Name="DoB" ColumnName="DoB" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Dep_Name" ColumnName="Dep_Name" />
+                <ScalarProperty Name="Job_Name" ColumnName="Job_Name" />
+                <ScalarProperty Name="work_status" ColumnName="work_status" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="output_Employnow" FunctionName="FinalHRMModel.Store.output_Employnow">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FinalHRMModel.output_Employnow_Result">
+                <ScalarProperty Name="Employ_ID" ColumnName="Employ_ID" />
+                <ScalarProperty Name="Employ_Name" ColumnName="Employ_Name" />
+                <ScalarProperty Name="DoB" ColumnName="DoB" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone_Number" ColumnName="Phone_Number" />
+                <ScalarProperty Name="Dep_Name" ColumnName="Dep_Name" />
+                <ScalarProperty Name="Job_Name" ColumnName="Job_Name" />
+                <ScalarProperty Name="salary" ColumnName="salary" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="output_HistoryEmploy" FunctionName="FinalHRMModel.Store.output_HistoryEmploy">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FinalHRMModel.output_HistoryEmploy_Result">
+                <ScalarProperty Name="Employ_ID" ColumnName="Employ_ID" />
+                <ScalarProperty Name="Employ_Name" ColumnName="Employ_Name" />
+                <ScalarProperty Name="DoB" ColumnName="DoB" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone_Number" ColumnName="Phone_Number" />
+                <ScalarProperty Name="joindate" ColumnName="joindate" />
+                <ScalarProperty Name="work_status" ColumnName="work_status" />
+                <ScalarProperty Name="quitdate" ColumnName="quitdate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="output_TPIHistory" FunctionName="FinalHRMModel.Store.output_TPIHistory">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FinalHRMModel.output_TPIHistory_Result">
+                <ScalarProperty Name="Proj_Name" ColumnName="Proj_Name" />
+                <ScalarProperty Name="Employ_Name" ColumnName="Employ_Name" />
+                <ScalarProperty Name="date_join" ColumnName="date_join" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="output_TPINow" FunctionName="FinalHRMModel.Store.output_TPINow">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FinalHRMModel.output_TPINow_Result">
+                <ScalarProperty Name="Proj_Name" ColumnName="Proj_Name" />
+                <ScalarProperty Name="Employ_Name" ColumnName="Employ_Name" />
+                <ScalarProperty Name="date_join" ColumnName="date_join" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Profile_Search" FunctionName="FinalHRMModel.Store.Profile_Search">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FinalHRMModel.Profile_Search_Result">
+                <ScalarProperty Name="Employ_ID" ColumnName="Employ_ID" />
+                <ScalarProperty Name="Employ_Name" ColumnName="Employ_Name" />
+                <ScalarProperty Name="Dep_Name" ColumnName="Dep_Name" />
+                <ScalarProperty Name="Job_Name" ColumnName="Job_Name" />
+                <ScalarProperty Name="date_started" ColumnName="date_started" />
+                <ScalarProperty Name="date_end" ColumnName="date_end" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Proj_Search" FunctionName="FinalHRMModel.Store.Proj_Search">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FinalHRMModel.Proj_Search_Result">
+                <ScalarProperty Name="Proj_ID" ColumnName="Proj_ID" />
+                <ScalarProperty Name="Proj_Name" ColumnName="Proj_Name" />
+                <ScalarProperty Name="date_start" ColumnName="date_start" />
+                <ScalarProperty Name="Proj_status" ColumnName="Proj_status" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="TPI_His_Search" FunctionName="FinalHRMModel.Store.TPI_His_Search">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FinalHRMModel.TPI_His_Search_Result">
+                <ScalarProperty Name="Employ_Name" ColumnName="Employ_Name" />
+                <ScalarProperty Name="Proj_Name" ColumnName="Proj_Name" />
+                <ScalarProperty Name="date_join" ColumnName="date_join" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="update_dep" FunctionName="FinalHRMModel.Store.update_dep" />
+          <FunctionImportMapping FunctionImportName="update_empl" FunctionName="FinalHRMModel.Store.update_empl" />
+          <FunctionImportMapping FunctionImportName="update_job" FunctionName="FinalHRMModel.Store.update_job" />
+          <FunctionImportMapping FunctionImportName="update_Proj" FunctionName="FinalHRMModel.Store.update_Proj" />
+          <FunctionImportMapping FunctionImportName="update_TPI" FunctionName="FinalHRMModel.Store.update_TPI" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
