@@ -1,0 +1,341 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="FinalHRMModelStoreContainer" CdmEntityContainer="FinalHRMEntities6">
+    <EntitySetMapping Name="Accounts">
+      <EntityTypeMapping TypeName="FinalHRMModel.Account">
+        <MappingFragment StoreEntitySet="Account">
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="pass" ColumnName="pass" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Departments">
+      <EntityTypeMapping TypeName="FinalHRMModel.Department">
+        <MappingFragment StoreEntitySet="Department">
+          <ScalarProperty Name="Dep_ID" ColumnName="Dep_ID" />
+          <ScalarProperty Name="Dep_Name" ColumnName="Dep_Name" />
+          <ScalarProperty Name="Manager_ID" ColumnName="Manager_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EmployeeNows">
+      <EntityTypeMapping TypeName="FinalHRMModel.EmployeeNow">
+        <MappingFragment StoreEntitySet="EmployeeNow">
+          <ScalarProperty Name="Employ_ID" ColumnName="Employ_ID" />
+          <ScalarProperty Name="Career_ID" ColumnName="Career_ID" />
+          <ScalarProperty Name="salary" ColumnName="salary" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EmployJobProfiles">
+      <EntityTypeMapping TypeName="FinalHRMModel.EmployJobProfile">
+        <MappingFragment StoreEntitySet="EmployJobProfile">
+          <ScalarProperty Name="Employ_ID" ColumnName="Employ_ID" />
+          <ScalarProperty Name="Career_ID" ColumnName="Career_ID" />
+          <ScalarProperty Name="date_started" ColumnName="date_started" />
+          <ScalarProperty Name="date_end" ColumnName="date_end" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HistoryEmployees">
+      <EntityTypeMapping TypeName="FinalHRMModel.HistoryEmployee">
+        <MappingFragment StoreEntitySet="HistoryEmployee">
+          <ScalarProperty Name="Employ_ID" ColumnName="Employ_ID" />
+          <ScalarProperty Name="Employ_Name" ColumnName="Employ_Name" />
+          <ScalarProperty Name="DoB" ColumnName="DoB" />
+          <ScalarProperty Name="Sex" ColumnName="Sex" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Phone_Number" ColumnName="Phone_Number" />
+          <ScalarProperty Name="joindate" ColumnName="joindate" />
+          <ScalarProperty Name="work_status" ColumnName="work_status" />
+          <ScalarProperty Name="quitdate" ColumnName="quitdate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HistoryTakePartIns">
+      <EntityTypeMapping TypeName="FinalHRMModel.HistoryTakePartIn">
+        <MappingFragment StoreEntitySet="HistoryTakePartIn">
+          <ScalarProperty Name="Proj_ID" ColumnName="Proj_ID" />
+          <ScalarProperty Name="Employ_ID" ColumnName="Employ_ID" />
+          <ScalarProperty Name="date_join" ColumnName="date_join" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="JobOfDeps">
+      <EntityTypeMapping TypeName="FinalHRMModel.JobOfDep">
+        <MappingFragment StoreEntitySet="JobOfDep">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Dep_ID" ColumnName="Dep_ID" />
+          <ScalarProperty Name="Job_ID" ColumnName="Job_ID" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Jobs">
+      <EntityTypeMapping TypeName="FinalHRMModel.Job">
+        <MappingFragment StoreEntitySet="Jobs">
+          <ScalarProperty Name="Job_ID" ColumnName="Job_ID" />
+          <ScalarProperty Name="Job_Name" ColumnName="Job_Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Projects">
+      <EntityTypeMapping TypeName="FinalHRMModel.Project">
+        <MappingFragment StoreEntitySet="Project">
+          <ScalarProperty Name="Proj_ID" ColumnName="Proj_ID" />
+          <ScalarProperty Name="Proj_Name" ColumnName="Proj_Name" />
+          <ScalarProperty Name="date_start" ColumnName="date_start" />
+          <ScalarProperty Name="Proj_status" ColumnName="Proj_status" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TakePartInNows">
+      <EntityTypeMapping TypeName="FinalHRMModel.TakePartInNow">
+        <MappingFragment StoreEntitySet="TakePartInNow">
+          <ScalarProperty Name="Proj_ID" ColumnName="Proj_ID" />
+          <ScalarProperty Name="Employ_ID" ColumnName="Employ_ID" />
+          <ScalarProperty Name="date_join" ColumnName="date_join" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="del_EmplowNow" FunctionName="FinalHRMModel.Store.del_EmplowNow" />
+    <FunctionImportMapping FunctionImportName="del_TakePartInNow" FunctionName="FinalHRMModel.Store.del_TakePartInNow" />
+    <FunctionImportMapping FunctionImportName="Dep_Search" FunctionName="FinalHRMModel.Store.Dep_Search">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="FinalHRMModel.Dep_Search_Result">
+          <ScalarProperty Name="Dep_ID" ColumnName="Dep_ID" />
+          <ScalarProperty Name="Dep_Name" ColumnName="Dep_Name" />
+          <ScalarProperty Name="Manager_ID" ColumnName="Manager_ID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Employ_Search" FunctionName="FinalHRMModel.Store.Employ_Search">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="FinalHRMModel.Employ_Search_Result">
+          <ScalarProperty Name="Employ_ID" ColumnName="Employ_ID" />
+          <ScalarProperty Name="Employ_Name" ColumnName="Employ_Name" />
+          <ScalarProperty Name="DoB" ColumnName="DoB" />
+          <ScalarProperty Name="Sex" ColumnName="Sex" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Phone_Number" ColumnName="Phone_Number" />
+          <ScalarProperty Name="Dep_Name" ColumnName="Dep_Name" />
+          <ScalarProperty Name="Job_Name" ColumnName="Job_Name" />
+          <ScalarProperty Name="salary" ColumnName="salary" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Employ_Search_History" FunctionName="FinalHRMModel.Store.Employ_Search_History">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="FinalHRMModel.Employ_Search_History_Result">
+          <ScalarProperty Name="Employ_ID" ColumnName="Employ_ID" />
+          <ScalarProperty Name="Employ_Name" ColumnName="Employ_Name" />
+          <ScalarProperty Name="DoB" ColumnName="DoB" />
+          <ScalarProperty Name="Sex" ColumnName="Sex" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Phone_Number" ColumnName="Phone_Number" />
+          <ScalarProperty Name="joindate" ColumnName="joindate" />
+          <ScalarProperty Name="work_status" ColumnName="work_status" />
+          <ScalarProperty Name="quitdate" ColumnName="quitdate" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="new_acc" FunctionName="FinalHRMModel.Store.new_acc" />
+    <FunctionImportMapping FunctionImportName="new_Dep" FunctionName="FinalHRMModel.Store.new_Dep" />
+    <FunctionImportMapping FunctionImportName="new_Employee" FunctionName="FinalHRMModel.Store.new_Employee" />
+    <FunctionImportMapping FunctionImportName="new_Jobs" FunctionName="FinalHRMModel.Store.new_Jobs" />
+    <FunctionImportMapping FunctionImportName="new_Profile" FunctionName="FinalHRMModel.Store.new_Profile" />
+    <FunctionImportMapping FunctionImportName="new_proj" FunctionName="FinalHRMModel.Store.new_proj" />
+    <FunctionImportMapping FunctionImportName="new_tpi" FunctionName="FinalHRMModel.Store.new_tpi" />
+    <FunctionImportMapping FunctionImportName="output_AllDep" FunctionName="FinalHRMModel.Store.output_AllDep">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="FinalHRMModel.output_AllDep_Result">
+          <ScalarProperty Name="Dep_ID" ColumnName="Dep_ID" />
+          <ScalarProperty Name="Dep_Name" ColumnName="Dep_Name" />
+          <ScalarProperty Name="Manager_ID" ColumnName="Manager_ID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="output_AllJob" FunctionName="FinalHRMModel.Store.output_AllJob">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="FinalHRMModel.output_AllJob_Result">
+          <ScalarProperty Name="Job_ID" ColumnName="Job_ID" />
+          <ScalarProperty Name="Job_Name" ColumnName="Job_Name" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="output_AllJoD" FunctionName="FinalHRMModel.Store.output_AllJoD">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="FinalHRMModel.output_AllJoD_Result">
+          <ScalarProperty Name="Dep_Name" ColumnName="Dep_Name" />
+          <ScalarProperty Name="Job_Name" ColumnName="Job_Name" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="output_AllProfile" FunctionName="FinalHRMModel.Store.output_AllProfile">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="FinalHRMModel.output_AllProfile_Result">
+          <ScalarProperty Name="Employ_ID" ColumnName="Employ_ID" />
+          <ScalarProperty Name="Employ_Name" ColumnName="Employ_Name" />
+          <ScalarProperty Name="Dep_Name" ColumnName="Dep_Name" />
+          <ScalarProperty Name="Job_Name" ColumnName="Job_Name" />
+          <ScalarProperty Name="date_started" ColumnName="date_started" />
+          <ScalarProperty Name="date_end" ColumnName="date_end" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="output_AllProj" FunctionName="FinalHRMModel.Store.output_AllProj">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="FinalHRMModel.output_AllProj_Result">
+          <ScalarProperty Name="Proj_ID" ColumnName="Proj_ID" />
+          <ScalarProperty Name="Proj_Name" ColumnName="Proj_Name" />
+          <ScalarProperty Name="date_start" ColumnName="date_start" />
+          <ScalarProperty Name="Proj_status" ColumnName="Proj_status" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="output_Employ_Dep" FunctionName="FinalHRMModel.Store.output_Employ_Dep">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="FinalHRMModel.output_Employ_Dep_Result">
+          <ScalarProperty Name="Employ_ID" ColumnName="Employ_ID" />
+          <ScalarProperty Name="Employ_Name" ColumnName="Employ_Name" />
+          <ScalarProperty Name="DoB" ColumnName="DoB" />
+          <ScalarProperty Name="Sex" ColumnName="Sex" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Job_Name" ColumnName="Job_Name" />
+          <ScalarProperty Name="salary" ColumnName="salary" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="output_Employ_Job" FunctionName="FinalHRMModel.Store.output_Employ_Job">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="FinalHRMModel.output_Employ_Job_Result">
+          <ScalarProperty Name="Employ_ID" ColumnName="Employ_ID" />
+          <ScalarProperty Name="Employ_Name" ColumnName="Employ_Name" />
+          <ScalarProperty Name="DoB" ColumnName="DoB" />
+          <ScalarProperty Name="Sex" ColumnName="Sex" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="work_status" ColumnName="work_status" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="output_Employ_Job_History" FunctionName="FinalHRMModel.Store.output_Employ_Job_History">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="FinalHRMModel.output_Employ_Job_History_Result">
+          <ScalarProperty Name="Employ_ID" ColumnName="Employ_ID" />
+          <ScalarProperty Name="Employ_Name" ColumnName="Employ_Name" />
+          <ScalarProperty Name="DoB" ColumnName="DoB" />
+          <ScalarProperty Name="Sex" ColumnName="Sex" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Dep_Name" ColumnName="Dep_Name" />
+          <ScalarProperty Name="Job_Name" ColumnName="Job_Name" />
+          <ScalarProperty Name="date_started" ColumnName="date_started" />
+          <ScalarProperty Name="date_end" ColumnName="date_end" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="output_Employ_Proj" FunctionName="FinalHRMModel.Store.output_Employ_Proj">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="FinalHRMModel.output_Employ_Proj_Result">
+          <ScalarProperty Name="Employ_ID" ColumnName="Employ_ID" />
+          <ScalarProperty Name="Employ_Name" ColumnName="Employ_Name" />
+          <ScalarProperty Name="DoB" ColumnName="DoB" />
+          <ScalarProperty Name="Sex" ColumnName="Sex" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Dep_Name" ColumnName="Dep_Name" />
+          <ScalarProperty Name="Job_Name" ColumnName="Job_Name" />
+          <ScalarProperty Name="work_status" ColumnName="work_status" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="output_Employnow" FunctionName="FinalHRMModel.Store.output_Employnow">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="FinalHRMModel.output_Employnow_Result">
+          <ScalarProperty Name="Employ_ID" ColumnName="Employ_ID" />
+          <ScalarProperty Name="Employ_Name" ColumnName="Employ_Name" />
+          <ScalarProperty Name="DoB" ColumnName="DoB" />
+          <ScalarProperty Name="Sex" ColumnName="Sex" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Phone_Number" ColumnName="Phone_Number" />
+          <ScalarProperty Name="Dep_Name" ColumnName="Dep_Name" />
+          <ScalarProperty Name="Job_Name" ColumnName="Job_Name" />
+          <ScalarProperty Name="salary" ColumnName="salary" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="output_HistoryEmploy" FunctionName="FinalHRMModel.Store.output_HistoryEmploy">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="FinalHRMModel.output_HistoryEmploy_Result">
+          <ScalarProperty Name="Employ_ID" ColumnName="Employ_ID" />
+          <ScalarProperty Name="Employ_Name" ColumnName="Employ_Name" />
+          <ScalarProperty Name="DoB" ColumnName="DoB" />
+          <ScalarProperty Name="Sex" ColumnName="Sex" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Phone_Number" ColumnName="Phone_Number" />
+          <ScalarProperty Name="joindate" ColumnName="joindate" />
+          <ScalarProperty Name="work_status" ColumnName="work_status" />
+          <ScalarProperty Name="quitdate" ColumnName="quitdate" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="output_TPIHistory" FunctionName="FinalHRMModel.Store.output_TPIHistory">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="FinalHRMModel.output_TPIHistory_Result">
+          <ScalarProperty Name="Proj_Name" ColumnName="Proj_Name" />
+          <ScalarProperty Name="Employ_Name" ColumnName="Employ_Name" />
+          <ScalarProperty Name="date_join" ColumnName="date_join" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="output_TPINow" FunctionName="FinalHRMModel.Store.output_TPINow">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="FinalHRMModel.output_TPINow_Result">
+          <ScalarProperty Name="Proj_Name" ColumnName="Proj_Name" />
+          <ScalarProperty Name="Employ_Name" ColumnName="Employ_Name" />
+          <ScalarProperty Name="date_join" ColumnName="date_join" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Profile_Search" FunctionName="FinalHRMModel.Store.Profile_Search">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="FinalHRMModel.Profile_Search_Result">
+          <ScalarProperty Name="Employ_ID" ColumnName="Employ_ID" />
+          <ScalarProperty Name="Employ_Name" ColumnName="Employ_Name" />
+          <ScalarProperty Name="Dep_Name" ColumnName="Dep_Name" />
+          <ScalarProperty Name="Job_Name" ColumnName="Job_Name" />
+          <ScalarProperty Name="date_started" ColumnName="date_started" />
+          <ScalarProperty Name="date_end" ColumnName="date_end" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Proj_Search" FunctionName="FinalHRMModel.Store.Proj_Search">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="FinalHRMModel.Proj_Search_Result">
+          <ScalarProperty Name="Proj_ID" ColumnName="Proj_ID" />
+          <ScalarProperty Name="Proj_Name" ColumnName="Proj_Name" />
+          <ScalarProperty Name="date_start" ColumnName="date_start" />
+          <ScalarProperty Name="Proj_status" ColumnName="Proj_status" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="TPI_His_Search" FunctionName="FinalHRMModel.Store.TPI_His_Search">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="FinalHRMModel.TPI_His_Search_Result">
+          <ScalarProperty Name="Employ_Name" ColumnName="Employ_Name" />
+          <ScalarProperty Name="Proj_Name" ColumnName="Proj_Name" />
+          <ScalarProperty Name="date_join" ColumnName="date_join" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="update_dep" FunctionName="FinalHRMModel.Store.update_dep" />
+    <FunctionImportMapping FunctionImportName="update_empl" FunctionName="FinalHRMModel.Store.update_empl" />
+    <FunctionImportMapping FunctionImportName="update_job" FunctionName="FinalHRMModel.Store.update_job" />
+    <FunctionImportMapping FunctionImportName="update_Proj" FunctionName="FinalHRMModel.Store.update_Proj" />
+    <FunctionImportMapping FunctionImportName="update_TPI" FunctionName="FinalHRMModel.Store.update_TPI" />
+  </EntityContainerMapping>
+</Mapping>

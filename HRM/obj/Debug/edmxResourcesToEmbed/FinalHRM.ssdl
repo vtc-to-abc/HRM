@@ -1,0 +1,403 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="FinalHRMModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Account">
+    <Key>
+      <PropertyRef Name="username" />
+    </Key>
+    <Property Name="username" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="pass" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Department">
+    <Key>
+      <PropertyRef Name="Dep_ID" />
+    </Key>
+    <Property Name="Dep_ID" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="Dep_Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Manager_ID" Type="nvarchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="EmployeeNow">
+    <Key>
+      <PropertyRef Name="Employ_ID" />
+    </Key>
+    <Property Name="Employ_ID" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="Career_ID" Type="nvarchar" MaxLength="10" />
+    <Property Name="salary" Type="int" />
+  </EntityType>
+  <EntityType Name="EmployJobProfile">
+    <Key>
+      <PropertyRef Name="Employ_ID" />
+      <PropertyRef Name="Career_ID" />
+    </Key>
+    <Property Name="Employ_ID" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="Career_ID" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="date_started" Type="date" />
+    <Property Name="date_end" Type="date" />
+  </EntityType>
+  <EntityType Name="HistoryEmployee">
+    <Key>
+      <PropertyRef Name="Employ_ID" />
+    </Key>
+    <Property Name="Employ_ID" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="Employ_Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="DoB" Type="date" />
+    <Property Name="Sex" Type="nvarchar" MaxLength="10" />
+    <Property Name="Email" Type="nvarchar" MaxLength="255" />
+    <Property Name="Phone_Number" Type="nchar" MaxLength="11" />
+    <Property Name="joindate" Type="date" />
+    <Property Name="work_status" Type="nvarchar" MaxLength="50" />
+    <Property Name="quitdate" Type="date" />
+  </EntityType>
+  <EntityType Name="HistoryTakePartIn">
+    <Key>
+      <PropertyRef Name="Proj_ID" />
+      <PropertyRef Name="Employ_ID" />
+    </Key>
+    <Property Name="Proj_ID" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="Employ_ID" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="date_join" Type="date" />
+    <Property Name="Note" Type="nvarchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="JobOfDep">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="Dep_ID" Type="nvarchar" MaxLength="10" />
+    <Property Name="Job_ID" Type="nvarchar" MaxLength="10" />
+    <Property Name="name" Type="nvarchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="Jobs">
+    <Key>
+      <PropertyRef Name="Job_ID" />
+    </Key>
+    <Property Name="Job_ID" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="Job_Name" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Project">
+    <Key>
+      <PropertyRef Name="Proj_ID" />
+    </Key>
+    <Property Name="Proj_ID" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="Proj_Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="date_start" Type="date" />
+    <Property Name="Proj_status" Type="nvarchar" MaxLength="50" />
+    <Property Name="Note" Type="nvarchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="TakePartInNow">
+    <Key>
+      <PropertyRef Name="Proj_ID" />
+      <PropertyRef Name="Employ_ID" />
+    </Key>
+    <Property Name="Proj_ID" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="Employ_ID" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="date_join" Type="date" />
+  </EntityType>
+  <Association Name="FK__Departmen__Manag__1FCDBCEB">
+    <End Role="EmployeeNow" Type="Self.EmployeeNow" Multiplicity="0..1" />
+    <End Role="Department" Type="Self.Department" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EmployeeNow">
+        <PropertyRef Name="Employ_ID" />
+      </Principal>
+      <Dependent Role="Department">
+        <PropertyRef Name="Manager_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__EmployeeN__Caree__1ED998B2">
+    <End Role="JobOfDep" Type="Self.JobOfDep" Multiplicity="0..1" />
+    <End Role="EmployeeNow" Type="Self.EmployeeNow" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="JobOfDep">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="EmployeeNow">
+        <PropertyRef Name="Career_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__EmployeeN__Emplo__1DE57479">
+    <End Role="HistoryEmployee" Type="Self.HistoryEmployee" Multiplicity="1" />
+    <End Role="EmployeeNow" Type="Self.EmployeeNow" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="HistoryEmployee">
+        <PropertyRef Name="Employ_ID" />
+      </Principal>
+      <Dependent Role="EmployeeNow">
+        <PropertyRef Name="Employ_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__EmployJob__Caree__239E4DCF">
+    <End Role="JobOfDep" Type="Self.JobOfDep" Multiplicity="1" />
+    <End Role="EmployJobProfile" Type="Self.EmployJobProfile" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="JobOfDep">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="EmployJobProfile">
+        <PropertyRef Name="Career_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__EmployJob__Emplo__22AA2996">
+    <End Role="HistoryEmployee" Type="Self.HistoryEmployee" Multiplicity="1" />
+    <End Role="EmployJobProfile" Type="Self.EmployJobProfile" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HistoryEmployee">
+        <PropertyRef Name="Employ_ID" />
+      </Principal>
+      <Dependent Role="EmployJobProfile">
+        <PropertyRef Name="Employ_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__HistoryTa__Emplo__2E1BDC42">
+    <End Role="HistoryEmployee" Type="Self.HistoryEmployee" Multiplicity="1" />
+    <End Role="HistoryTakePartIn" Type="Self.HistoryTakePartIn" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HistoryEmployee">
+        <PropertyRef Name="Employ_ID" />
+      </Principal>
+      <Dependent Role="HistoryTakePartIn">
+        <PropertyRef Name="Employ_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__HistoryTa__Proj___2D27B809">
+    <End Role="Project" Type="Self.Project" Multiplicity="1" />
+    <End Role="HistoryTakePartIn" Type="Self.HistoryTakePartIn" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Project">
+        <PropertyRef Name="Proj_ID" />
+      </Principal>
+      <Dependent Role="HistoryTakePartIn">
+        <PropertyRef Name="Proj_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__JobOfDep__Dep_ID__164452B1">
+    <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+    <End Role="JobOfDep" Type="Self.JobOfDep" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Department">
+        <PropertyRef Name="Dep_ID" />
+      </Principal>
+      <Dependent Role="JobOfDep">
+        <PropertyRef Name="Dep_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__JobOfDep__Job_ID__173876EA">
+    <End Role="Jobs" Type="Self.Jobs" Multiplicity="0..1" />
+    <End Role="JobOfDep" Type="Self.JobOfDep" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Jobs">
+        <PropertyRef Name="Job_ID" />
+      </Principal>
+      <Dependent Role="JobOfDep">
+        <PropertyRef Name="Job_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TakePartI__Emplo__2A4B4B5E">
+    <End Role="EmployeeNow" Type="Self.EmployeeNow" Multiplicity="1" />
+    <End Role="TakePartInNow" Type="Self.TakePartInNow" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EmployeeNow">
+        <PropertyRef Name="Employ_ID" />
+      </Principal>
+      <Dependent Role="TakePartInNow">
+        <PropertyRef Name="Employ_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TakePartI__Proj___29572725">
+    <End Role="Project" Type="Self.Project" Multiplicity="1" />
+    <End Role="TakePartInNow" Type="Self.TakePartInNow" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Project">
+        <PropertyRef Name="Proj_ID" />
+      </Principal>
+      <Dependent Role="TakePartInNow">
+        <PropertyRef Name="Proj_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="del_EmplowNow" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="del_TakePartInNow" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="projid" Type="nvarchar" Mode="In" />
+    <Parameter Name="emid" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="Dep_Search" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="search" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="Employ_Search" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="search" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="Employ_Search_History" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="search" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="new_acc" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="acc" Type="nvarchar" Mode="In" />
+    <Parameter Name="pass" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="new_Dep" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="dep_id" Type="nvarchar" Mode="In" />
+    <Parameter Name="dep_name" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="new_Employee" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="emid" Type="nvarchar" Mode="In" />
+    <Parameter Name="emname" Type="nvarchar" Mode="In" />
+    <Parameter Name="dob" Type="date" Mode="In" />
+    <Parameter Name="sex" Type="nvarchar" Mode="In" />
+    <Parameter Name="email" Type="nvarchar" Mode="In" />
+    <Parameter Name="phone" Type="nvarchar" Mode="In" />
+    <Parameter Name="join" Type="date" Mode="In" />
+    <Parameter Name="Career" Type="nvarchar" Mode="In" />
+    <Parameter Name="salary" Type="int" Mode="In" />
+  </Function>
+  <Function Name="new_Jobs" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="jobid" Type="nvarchar" Mode="In" />
+    <Parameter Name="jobname" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="new_Profile" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="emid" Type="nvarchar" Mode="In" />
+    <Parameter Name="career" Type="nvarchar" Mode="In" />
+    <Parameter Name="datestart" Type="date" Mode="In" />
+    <Parameter Name="dateend" Type="date" Mode="In" />
+  </Function>
+  <Function Name="new_proj" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="projid" Type="nvarchar" Mode="In" />
+    <Parameter Name="projname" Type="nvarchar" Mode="In" />
+    <Parameter Name="date" Type="date" Mode="In" />
+    <Parameter Name="status" Type="nvarchar" Mode="In" />
+    <Parameter Name="Note" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="new_tpi" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="projid" Type="nvarchar" Mode="In" />
+    <Parameter Name="empid" Type="nvarchar" Mode="In" />
+    <Parameter Name="date" Type="date" Mode="In" />
+  </Function>
+  <Function Name="output_AllDep" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="output_AllJob" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="output_AllJoD" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="output_AllProfile" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="output_AllProj" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="output_Employ_Dep" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="depid" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="output_Employ_Job" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="jobid" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="output_Employ_Job_History" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="employ" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="output_Employ_Proj" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="projid" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="output_Employnow" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="output_HistoryEmploy" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="output_TPIHistory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="output_TPINow" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="Profile_Search" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="search" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="Proj_Search" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="search" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="TPI_His_Search" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="search" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="update_dep" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="depid" Type="nvarchar" Mode="In" />
+    <Parameter Name="depname" Type="nvarchar" Mode="In" />
+    <Parameter Name="manager" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="update_empl" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="emid" Type="nvarchar" Mode="In" />
+    <Parameter Name="emname" Type="nvarchar" Mode="In" />
+    <Parameter Name="dob" Type="date" Mode="In" />
+    <Parameter Name="sex" Type="nvarchar" Mode="In" />
+    <Parameter Name="email" Type="nvarchar" Mode="In" />
+    <Parameter Name="phone" Type="nvarchar" Mode="In" />
+    <Parameter Name="join" Type="date" Mode="In" />
+    <Parameter Name="Career" Type="nvarchar" Mode="In" />
+    <Parameter Name="salary" Type="int" Mode="In" />
+  </Function>
+  <Function Name="update_job" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="jobid" Type="nvarchar" Mode="In" />
+    <Parameter Name="jobname" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="update_Proj" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="projid" Type="nvarchar" Mode="In" />
+    <Parameter Name="projname" Type="nvarchar" Mode="In" />
+    <Parameter Name="date" Type="date" Mode="In" />
+    <Parameter Name="status" Type="nvarchar" Mode="In" />
+    <Parameter Name="Note" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="update_TPI" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="projid" Type="nvarchar" Mode="In" />
+    <Parameter Name="empid" Type="nvarchar" Mode="In" />
+    <Parameter Name="date" Type="date" Mode="In" />
+    <Parameter Name="Note" Type="nvarchar" Mode="In" />
+  </Function>
+  <EntityContainer Name="FinalHRMModelStoreContainer">
+    <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EmployeeNow" EntityType="Self.EmployeeNow" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EmployJobProfile" EntityType="Self.EmployJobProfile" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="HistoryEmployee" EntityType="Self.HistoryEmployee" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="HistoryTakePartIn" EntityType="Self.HistoryTakePartIn" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="JobOfDep" EntityType="Self.JobOfDep" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Jobs" EntityType="Self.Jobs" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Project" EntityType="Self.Project" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TakePartInNow" EntityType="Self.TakePartInNow" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Departmen__Manag__1FCDBCEB" Association="Self.FK__Departmen__Manag__1FCDBCEB">
+      <End Role="EmployeeNow" EntitySet="EmployeeNow" />
+      <End Role="Department" EntitySet="Department" />
+    </AssociationSet>
+    <AssociationSet Name="FK__EmployeeN__Caree__1ED998B2" Association="Self.FK__EmployeeN__Caree__1ED998B2">
+      <End Role="JobOfDep" EntitySet="JobOfDep" />
+      <End Role="EmployeeNow" EntitySet="EmployeeNow" />
+    </AssociationSet>
+    <AssociationSet Name="FK__EmployeeN__Emplo__1DE57479" Association="Self.FK__EmployeeN__Emplo__1DE57479">
+      <End Role="HistoryEmployee" EntitySet="HistoryEmployee" />
+      <End Role="EmployeeNow" EntitySet="EmployeeNow" />
+    </AssociationSet>
+    <AssociationSet Name="FK__EmployJob__Caree__239E4DCF" Association="Self.FK__EmployJob__Caree__239E4DCF">
+      <End Role="JobOfDep" EntitySet="JobOfDep" />
+      <End Role="EmployJobProfile" EntitySet="EmployJobProfile" />
+    </AssociationSet>
+    <AssociationSet Name="FK__EmployJob__Emplo__22AA2996" Association="Self.FK__EmployJob__Emplo__22AA2996">
+      <End Role="HistoryEmployee" EntitySet="HistoryEmployee" />
+      <End Role="EmployJobProfile" EntitySet="EmployJobProfile" />
+    </AssociationSet>
+    <AssociationSet Name="FK__HistoryTa__Emplo__2E1BDC42" Association="Self.FK__HistoryTa__Emplo__2E1BDC42">
+      <End Role="HistoryEmployee" EntitySet="HistoryEmployee" />
+      <End Role="HistoryTakePartIn" EntitySet="HistoryTakePartIn" />
+    </AssociationSet>
+    <AssociationSet Name="FK__HistoryTa__Proj___2D27B809" Association="Self.FK__HistoryTa__Proj___2D27B809">
+      <End Role="Project" EntitySet="Project" />
+      <End Role="HistoryTakePartIn" EntitySet="HistoryTakePartIn" />
+    </AssociationSet>
+    <AssociationSet Name="FK__JobOfDep__Dep_ID__164452B1" Association="Self.FK__JobOfDep__Dep_ID__164452B1">
+      <End Role="Department" EntitySet="Department" />
+      <End Role="JobOfDep" EntitySet="JobOfDep" />
+    </AssociationSet>
+    <AssociationSet Name="FK__JobOfDep__Job_ID__173876EA" Association="Self.FK__JobOfDep__Job_ID__173876EA">
+      <End Role="Jobs" EntitySet="Jobs" />
+      <End Role="JobOfDep" EntitySet="JobOfDep" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TakePartI__Emplo__2A4B4B5E" Association="Self.FK__TakePartI__Emplo__2A4B4B5E">
+      <End Role="EmployeeNow" EntitySet="EmployeeNow" />
+      <End Role="TakePartInNow" EntitySet="TakePartInNow" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TakePartI__Proj___29572725" Association="Self.FK__TakePartI__Proj___29572725">
+      <End Role="Project" EntitySet="Project" />
+      <End Role="TakePartInNow" EntitySet="TakePartInNow" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
